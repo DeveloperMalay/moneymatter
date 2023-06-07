@@ -8,8 +8,10 @@ class MoneydataState extends Equatable {
 
   factory MoneydataState.initial() {
     return MoneydataState(moneydata: [
-      MoneyDataModel('Susanto Mama', 1500, '1 month'),
-      MoneyDataModel('Nitish Da', 6000, '10 June'),
+      MoneyDataModel(
+          id: 1, name: 'Susanto Mama', amount: 1500, deadline: '1 month'),
+      MoneyDataModel(
+          id: 2, name: 'Nitish Da', amount: 6000, deadline: '10 June'),
     ]);
   }
   MoneydataState copyWith({
