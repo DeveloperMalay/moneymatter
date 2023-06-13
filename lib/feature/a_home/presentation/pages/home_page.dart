@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moneymatter/feature/a_home/presentation/cubit/cubit/moneydata_cubit.dart';
 
 import '../../../b_data_enter/presentation/pages/data_enter_page.dart';
+import '../../local/notification/notification.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -102,9 +103,12 @@ class _HomePageState extends State<HomePage> {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    setState(() {
-                      selectedindex.remove(index);
-                    });
+                    // setState(() {
+                    //   selectedindex.remove(index);
+                    // });
+                    DateTime reminderDateTime = DateTime(2023, 6, 9, 6,
+                        17); // Set the desired reminder date and time
+                    scheduleNotification(reminderDateTime);
                   },
                   onLongPress: () {
                     setState(() {
@@ -180,7 +184,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -193,23 +197,30 @@ class _HomePageState extends State<HomePage> {
                                       .moneydata[index]
                                       .name,
                                   style: const TextStyle(
-                                      fontSize: 15,
+                                      fontSize: 17,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.deepPurple)),
                               Text(
                                   "Rs. ${context.watch<MoneydataCubit>().state.moneydata[index].amount.toString()}",
                                   style: const TextStyle(
-                                      fontSize: 12,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.w500,
                                       color: Color.fromARGB(255, 69, 69, 69)))
                             ],
                           ),
-                          Text(
-                              'Deadline:${context.watch<MoneydataCubit>().state.moneydata[index].deadline}',
-                              style: const TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black))
+                          selectedindex.contains(index)
+                              ? IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    Icons.delete,
+                                    color: Colors.white,
+                                  ))
+                              : Text(
+                                  'Deadline:${context.watch<MoneydataCubit>().state.moneydata[index].deadline}',
+                                  style: const TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black))
                         ],
                       ),
                     ),
